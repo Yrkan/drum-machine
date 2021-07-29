@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+}
+
+#drum-machine,
+#root {
+  width: 100%;
+}
+
+#drum-machine {
+  width: 50%;
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+#pad {
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  border: 5px solid red;
+  padding: 15px;
+}
+
+#pad button {
+  padding: 15px 5px;
+  background-color: red;
+  border: none;
+  font-family: cursive;
+  color: #000;
+  font-size: large;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+#display {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-family: cursive;
+  font-size: 3rem;
+  border: 5px solid red;
+  padding: 25px 15px;
+  color: red;
+}
