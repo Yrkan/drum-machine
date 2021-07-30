@@ -1,36 +1,40 @@
 import data from "../data.json";
 
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 
 const Pad = ({ settings, setSettings }) => {
-  const { set, power } = settings;
+  const handleKeyDown = useCallback(
+    (event) => {
+      const element = data[settings.set].find(
+        (e) => e.keyCode === event.keyCode
+      );
+      if (settings.power && element) {
+        playSound(element.id, element.url);
+        setSettings((prev) => ({ ...prev, lastPlayed: element.id }));
+      }
+    },
+    [settings]
+  );
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
-  }, []);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
-  const handleKeyDown = (event) => {
-    const element = data[set].find((e) => e.keyCode === event.keyCode);
-    if (power && element) {
-      playSound(element.url, settings.volume);
-      setSettings((prev) => ({ ...prev, lastPlayed: element.id }));
-    }
-  };
-
-  const playSound = (id, url, volume = 0.5, power = true) => {
+  const playSound = (id, url) => {
     const audio = new Audio(url);
-    audio.volume = volume;
-    power && audio.play();
+    audio.volume = settings.volume;
+    console.log(settings.volume);
+    settings.power && audio.play();
     setSettings((prev) => ({ ...prev, lastPlayed: id }));
   };
 
   return (
     <div id="pad">
-      {data[set].map((tile, index) => (
-        <button
-          key={index}
-          onClick={() => playSound(tile.id, tile.url, settings.volume, power)}
-        >
+      {data[settings.set].map((tile, index) => (
+        <button key={index} onClick={() => playSound(tile.id, tile.url)}>
           {tile.keyTrigger}
         </button>
       ))}

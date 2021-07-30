@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Controls from "./components/Controls";
 import Pad from "./components/Pad";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <main id="drum-machine">
       <div id="display">{settings.lastPlayed}</div>
       <Pad settings={settings} setSettings={setSettings} />
+      <Controls settings={settings} setSettings={setSettings} />
     </main>
   );
 }
